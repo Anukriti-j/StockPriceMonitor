@@ -2,25 +2,30 @@ import UIKit
 
 class PriceUpdateViewController: UIViewController {
     
-    var stock: Stock!
+    private enum PriceConstants {
+        static let increment: Double = 10.0
+        static let minRandomPrice: Double = 50.0
+        static let maxRandomPrice: Double = 500.0
+    }
+    
+    var stock: Stock?
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     @IBAction func increasePrice(_ sender: Any) {
-        stock.price += 10
-        print("\(stock.price)")
+        guard let stock = stock else { return }
+        stock.price += PriceConstants.increment
     }
     
     @IBAction func decreasePrice(_ sender: Any) {
-        stock.price -= 10
-        print("\(stock.price)")
-        
+        guard let stock = stock else { return }
+        stock.price -= PriceConstants.increment
     }
     
     @IBAction func setRandomPrice(_ sender: Any) {
-        stock.price = Double.random(in: 50...500)
-        print("\(stock.price)")
+        guard let stock = stock else { return }
+        stock.price = Double.random(in: PriceConstants.minRandomPrice...PriceConstants.maxRandomPrice)
     }
 }
